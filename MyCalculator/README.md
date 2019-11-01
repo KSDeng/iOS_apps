@@ -2,7 +2,7 @@
 
 
 
-![interface](/Users/dks/Desktop/Github_Repositories/iOS_apps/MyCalculator/interface.png)
+![interface](https://github.com/KSDeng/iOS_apps/blob/master/MyCalculator/interface.png?raw=true)
 
 **已实现功能：**
 
