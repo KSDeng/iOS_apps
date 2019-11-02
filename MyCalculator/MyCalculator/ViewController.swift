@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 //TODO: 结果显示Label的AutoShrink
 
@@ -57,6 +58,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var divideButton: UIButton!
     
+    
+    
     // 操作符按钮的初始背景颜色
     var originalBkgColor = UIColor.orange
     
@@ -65,9 +68,11 @@ class ViewController: UIViewController {
         case add, minus, multiply, divide, wait
     }
     
-    
     // 当前状态
     var currentState = operation.wait
+    
+    // 音效播放器
+    var soundPlayer: AVAudioPlayer!
     
     // 按下的按钮(用于改变控件style)
     var buttonPressed = operation.wait {
@@ -155,6 +160,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func clearAction(_ sender: UIButton) {
+        playSound()
+        
         ifError = false     // 这一句必须放在最前面, 否则会影响labelValueBuffer的赋值
         
         labelValueBuffer = "0"
@@ -168,6 +175,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func toggleAction(_ sender: UIButton) {
+        playSound()
+        
         if(ifError){
             return
         }
@@ -177,6 +186,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func percentAction(_ sender: UIButton) {
+        playSound()
+        
         if(ifError){
             return
         }
@@ -187,6 +198,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func operatorAction(_ sender: UIButton) {
+        playSound()
+        
         if(ifError){
             return
         }
@@ -282,6 +295,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func numberInputAction(_ sender: UIButton) {
+        playSound()
+        
         buttonPressed = .wait
         let numberText = sender.titleLabel!.text!
         
@@ -297,6 +312,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func dotAction(_ sender: UIButton) {
+        playSound()
         
         // 新输入数字按小数点默认整数部分为0
         if(ifNewNumber){
@@ -313,15 +329,23 @@ class ViewController: UIViewController {
 
     }
     
+    // 播放音效
+    private func playSound() {
+        soundPlayer.play()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         originalBkgColor = addButton.backgroundColor!
         
-        //resultLabel.numberOfLines = 1
-        //resultLabel.minimumScaleFactor = 0.7
-        //resultLabel.adjustsFontSizeToFitWidth = true
+        // 预加载音效
+        let url = Bundle.main.url(forResource: "button", withExtension: "wav")
+        do {
+            soundPlayer = try AVAudioPlayer(contentsOf: url!)
+        } catch {
+            print(error)
+        }
         
     }
     

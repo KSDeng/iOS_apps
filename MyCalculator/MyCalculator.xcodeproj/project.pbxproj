@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AD3AB5C236D2F5B000605AE /* button.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0AD3AB5B236D2F5B000605AE /* button.wav */; };
 		0AFE59E72369846E00679970 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE59E62369846E00679970 /* AppDelegate.swift */; };
 		0AFE59E92369846E00679970 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE59E82369846E00679970 /* SceneDelegate.swift */; };
 		0AFE59EB2369846E00679970 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFE59EA2369846E00679970 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0AD3AB5B236D2F5B000605AE /* button.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button.wav; sourceTree = "<group>"; };
 		0AFE59E32369846E00679970 /* MyCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AFE59E62369846E00679970 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AFE59E82369846E00679970 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,11 +39,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AD3AB5D236D2F63000605AE /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				0AD3AB5B236D2F5B000605AE /* button.wav */,
+			);
+			path = sound;
+			sourceTree = "<group>";
+		};
 		0AFE59DA2369846E00679970 = {
 			isa = PBXGroup;
 			children = (
 				0AFE59E52369846E00679970 /* MyCalculator */,
 				0AFE59E42369846E00679970 /* Products */,
+				0AD3AB5D236D2F63000605AE /* sound */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +138,7 @@
 			files = (
 				0AFE59F32369846E00679970 /* LaunchScreen.storyboard in Resources */,
 				0AFE59F02369846E00679970 /* Assets.xcassets in Resources */,
+				0AD3AB5C236D2F5B000605AE /* button.wav in Resources */,
 				0AFE59EE2369846E00679970 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
