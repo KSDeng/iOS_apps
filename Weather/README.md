@@ -8,13 +8,19 @@
 
 ![](https://github.com/KSDeng/iOS_apps/blob/master/Weather/pic/pic4.png?raw=true)
 
+![](https://github.com/KSDeng/iOS_apps/blob/master/Weather/pic/pic_London.png?raw=true)
 
 
 
 
-对比一下真实的天气：
 
+**对比一下真实的天气：**
 
+![](https://github.com/KSDeng/iOS_apps/blob/master/Weather/pic/w_shanghai.JPG?raw=true)
+
+![](https://github.com/KSDeng/iOS_apps/blob/master/Weather/pic/w_london.JPG?raw=true)
+
+**基本符合**
 
 
 
@@ -29,4 +35,5 @@
 ### TODO：
 
 * 支持中文查询
+* 未来天气走势
 
