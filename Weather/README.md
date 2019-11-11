@@ -1,6 +1,18 @@
 # 天气App
 
+![](https://github.com/KSDeng/iOS_apps/blob/master/Weather/pic/pic1.png?raw=true)
 
+![](https://github.com/KSDeng/iOS_apps/blob/master/Weather/pic/pic2.png?raw=true)
+
+![](https://github.com/KSDeng/iOS_apps/blob/master/Weather/pic/pic3.png?raw=true)
+
+![](https://github.com/KSDeng/iOS_apps/blob/master/Weather/pic/pic4.png?raw=true)
+
+
+
+
+
+对比一下真实的天气：
 
 
 
