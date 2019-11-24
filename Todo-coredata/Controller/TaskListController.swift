@@ -15,6 +15,8 @@ class TaskListController: UITableViewController {
     
     var todos:[Todo] = []
     
+    @IBOutlet weak var taskSearchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
@@ -26,6 +28,8 @@ class TaskListController: UITableViewController {
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         editButtonItem.title = "编辑"
         
+        // 指定代理，为实现UISearchBarDelegate中的功能做准备
+        taskSearchBar.delegate = self
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -73,6 +77,9 @@ class TaskListController: UITableViewController {
             let deleteTodo = todos.remove(at: indexPath.row)
             context.delete(deleteTodo)
             
+            showTodos()
+            updateIndexAfterDelete(deleteIndex: Int(deleteTodo.index))
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
             
         } else if editingStyle == .insert {
@@ -81,12 +88,39 @@ class TaskListController: UITableViewController {
         
     }
     
+    // 删除后index更新
+    private func updateIndexAfterDelete(deleteIndex: Int) {
+        if todos.count > deleteIndex {
+            for i in deleteIndex ... todos.count - 1 {
+                todos[i].index = todos[i].index - 1
+            }
+        }
+    }
+    
 
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        todos.swapAt(fromIndexPath.row, to.row)
         
+        // 添加index字段实现重排序与存储
+        showTodos()
         
+        let fromRow = Int(todos[fromIndexPath.row].index)
+        let toRow = Int(todos[to.row].index)
+        
+        if fromRow < toRow {
+            todos[fromRow].index = Int32(toRow)
+            for i in fromRow + 1 ... toRow {
+                todos[Int(i)].index = todos[Int(i)].index - 1
+            }
+        }else {
+            todos[fromRow].index = Int32(toRow)
+            for i in toRow ... fromRow - 1 {
+                todos[Int(i)].index = todos[Int(i)].index + 1
+            }
+        }
+        // showTodos()
+        todos = todos.sorted(by: {$0.index < $1.index})
+        showTodos()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -157,6 +191,7 @@ class TaskListController: UITableViewController {
             for indexPath in selectedIndexPaths {
                 let deleteTodo = todos.remove(at: indexPath.row)
                 context.delete(deleteTodo)
+                updateIndexAfterDelete(deleteIndex: Int(deleteTodo.index))
             }
             
             tableView.deleteRows(at: selectedIndexPaths, with: .left)
@@ -178,30 +213,29 @@ class TaskListController: UITableViewController {
         // 注意加载数据是有返回值的
         do {
             try todos = context.fetch(Todo.fetchRequest())
+            todos = todos.sorted(by: {$0.index < $1.index})
         } catch {
             print(error)
         }
     }
     
-    private func reloadContextDataBetween(start: Int, end: Int){
-        for i in start...end {
-            let getTodo = todos[i]
-            context.delete(getTodo)
-        }
-        
-        for i in (start...end).reversed() {
-            context.insert(todos[i])
+    private func showTodos(){
+        print("")
+        for todo in todos {
+            print("\(todo.index), \(todo.name), \(todo.checked)")
         }
     }
     
+    
 }
 
-
+// 实现反向传值的相关功能
 extension TaskListController: TodoDelegate {
     
     func addTodo(taskName: String) {
         // 实例化CoreData对象
         let newTodo = Todo(context: context)
+        newTodo.index = Int32(todos.count)
         newTodo.name = taskName
         newTodo.checked = false
         
@@ -210,19 +244,47 @@ extension TaskListController: TodoDelegate {
         let index = IndexPath(row: todos.count - 1, section: 0)
         tableView.insertRows(at: [index], with: .right)
         
-        // saveData()
-        
     }
-    
     
     func editTodo(taskName: String, editRowIndex: Int) {
         todos[editRowIndex].name = taskName
         
         let cell = tableView.cellForRow(at: IndexPath(row: editRowIndex, section: 0)) as! TodoTaskCell
         cell.taskNameLabel.text = taskName
-        
-        // saveData()
     }
     
+}
+
+// 实现搜索框相关功能
+extension TaskListController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchBar.text!.isEmpty {
+            doSearch()
+        }else {
+            loadData()
+            // 放弃第一响应者，收回键盘
+            // tableView.resignFirstResponder()     // 错误写法
+            
+            // 第一时间响应
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+        tableView.reloadData()
+    }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !searchBar.text!.isEmpty {
+            doSearch()
+        }
+        tableView.reloadData()
+    }
+    
+    private func doSearch(){
+        do {
+            try todos = context.fetch(Todo.fetchRequest()).filter({$0.name?.contains(taskSearchBar.text!) ?? false}).sorted(by: {$0.index < $1.index})
+        } catch {
+            print(error)
+        }
+    }
 }

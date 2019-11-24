@@ -46,6 +46,9 @@
 		0A39F8E02385650A003510C4 = {
 			isa = PBXGroup;
 			children = (
+				0A7775AC238A7DB300DA65DD /* Controller */,
+				0A7775AB238A7D9D00DA65DD /* View */,
+				0A7775AA238A7D8700DA65DD /* Model */,
 				0A39F8EB2385650A003510C4 /* Todo-coredata */,
 				0A39F8EA2385650A003510C4 /* Products */,
 			);
@@ -62,18 +65,39 @@
 		0A39F8EB2385650A003510C4 /* Todo-coredata */ = {
 			isa = PBXGroup;
 			children = (
-				0A39F8EC2385650A003510C4 /* AppDelegate.swift */,
-				0A39F8EE2385650A003510C4 /* SceneDelegate.swift */,
 				0A39F8F22385650A003510C4 /* Main.storyboard */,
 				0A39F8F82385650B003510C4 /* Assets.xcassets */,
 				0A39F8FA2385650B003510C4 /* LaunchScreen.storyboard */,
 				0A39F8FD2385650B003510C4 /* Info.plist */,
-				0A39F8F52385650A003510C4 /* Todo_coredata.xcdatamodeld */,
-				0A39F90323856578003510C4 /* TaskListController.swift */,
-				0A39F905238565D0003510C4 /* TaskEditController.swift */,
-				0A668B062386279C00B16210 /* TodoTaskCell.swift */,
 			);
 			path = "Todo-coredata";
+			sourceTree = "<group>";
+		};
+		0A7775AA238A7D8700DA65DD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0A39F8F52385650A003510C4 /* Todo_coredata.xcdatamodeld */,
+				0A668B062386279C00B16210 /* TodoTaskCell.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0A7775AB238A7D9D00DA65DD /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0A7775AC238A7DB300DA65DD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0A39F8EC2385650A003510C4 /* AppDelegate.swift */,
+				0A39F8EE2385650A003510C4 /* SceneDelegate.swift */,
+				0A39F90323856578003510C4 /* TaskListController.swift */,
+				0A39F905238565D0003510C4 /* TaskEditController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
